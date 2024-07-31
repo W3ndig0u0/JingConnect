@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchPosts } from '../../../api';
-import '../../../styles.css';  // Import your CSS file
+import '../../../styles.css';
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
@@ -10,11 +10,11 @@ const Post = () => {
     const getPosts = async () => {
       try {
         const data = await fetchPosts();
-        setPosts(data); // Assumes data is an array of posts
+        setPosts(data);
       } catch (error) {
         console.error('Failed to fetch posts:', error.message);
       } finally {
-        setLoading(false); // Always stop loading in either case
+        setLoading(false);
       }
     };
 
