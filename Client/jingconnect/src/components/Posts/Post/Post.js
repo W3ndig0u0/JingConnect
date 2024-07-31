@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchPosts } from '../../../api';
+import '../../../styles.css';  // Import your CSS file
 
 const Post = () => {
   const [posts, setPosts] = useState([]);
@@ -11,7 +12,7 @@ const Post = () => {
         const data = await fetchPosts();
         setPosts(data); // Assumes data is an array of posts
       } catch (error) {
-        console.error('Failed to fetch posts:', error.response ? error.response.data : error.message);
+        console.error('Failed to fetch posts:', error.message);
       } finally {
         setLoading(false); // Always stop loading in either case
       }
@@ -25,19 +26,20 @@ const Post = () => {
   }
 
   return (
-    <div>
+    <div className="container">
       <h1>Posts</h1>
       {posts.length === 0 ? (
         <p>No posts available</p>
       ) : (
         posts.map((post) => (
-          <div key={post._id}>
-            <h4>Title: {post.title}</h4>
-            <p>Creator: {post.creator}</p>
-            <p>Message: {post.message}</p>
-            <p>Likes: {post.likeCount}</p>
-            <p>Date: {new Date(post.createdAt).toLocaleDateString()}</p>
-            {post.selectedFile && <img src={post.selectedFile} alt={post.title} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />}
+          <div key={post._id} className="post-card">
+            <img src={post.selectedFile} alt={post.creator} />
+            <div className="post-card-content">
+              <h4>{post.creator}</h4>
+              <p><strong>Likes:</strong> {post.likeCount}</p>
+              <p><strong>Date:</strong> {new Date(post.createdAt).toLocaleDateString()}</p>
+              <div><p>{post.message}</p></div>
+            </div>
           </div>
         ))
       )}

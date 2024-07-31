@@ -6,9 +6,9 @@ import Posts from './components/Posts/Posts.js';
 const App = () => {
   return (
     <div>
-      <>
-      <Form/>
+      <>      
       <Posts/>
+      <Form/>
       </>
     </div>
   )

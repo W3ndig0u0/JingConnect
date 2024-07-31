@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createPosts } from '../../api';
+import '../../styles.css';
 
 const Form = () => {
   const [post, setPost] = useState({
@@ -15,13 +16,7 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const newPost = {
-        title: post.title,
-        message: post.message,
-        creator: post.creator,
-        selectedFile: post.selectedFile,
-        likeCount: post.likeCount,
-      };
+      const newPost = { ...post };
       await createPosts(newPost);
       setSuccess(true);
       setError(null);
@@ -39,51 +34,53 @@ const Form = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Create Post</h1>
-      {success && <p>Post created successfully!</p>}
-      {error && <p>{error}</p>}
-      <div>
-        <label>Title</label>
-        <input 
-          type="text" 
-          value={post.title} 
-          onChange={(e) => setPost({ ...post, title: e.target.value })} 
-        />
-      </div>
-      <div>
-        <label>Message</label>
-        <textarea 
-          value={post.message} 
-          onChange={(e) => setPost({ ...post, message: e.target.value })} 
-        />
-      </div>
-      <div>
-        <label>Creator</label>
-        <input 
-          type="text" 
-          value={post.creator} 
-          onChange={(e) => setPost({ ...post, creator: e.target.value })} 
-        />
-      </div>
-      <div>
-        <label>Selected File (URL)</label>
-        <input 
-          type="text" 
-          value={post.selectedFile} 
-          onChange={(e) => setPost({ ...post, selectedFile: e.target.value })} 
-        />
-      </div>
-      <div>
-        <label>Likes</label>
-        <input 
-          type="number" 
-          value={post.likeCount} 
-          onChange={(e) => setPost({ ...post, likeCount: parseInt(e.target.value, 10) || 0 })} 
-        />
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+    <div className="container">
+      <form onSubmit={handleSubmit} className="form-container">
+        <h1>Create Post</h1>
+        {success && <p className="success-message">Post created successfully!</p>}
+        {error && <p className="error-message">{error}</p>}
+        <div>
+          <label>Title</label>
+          <input 
+            type="text" 
+            value={post.title} 
+            onChange={(e) => setPost({ ...post, title: e.target.value })} 
+          />
+        </div>
+        <div>
+          <label>Creator</label>
+          <input 
+            type="text" 
+            value={post.creator} 
+            onChange={(e) => setPost({ ...post, creator: e.target.value })} 
+          />
+        </div>
+        <div>
+          <label>Message</label>
+          <textarea 
+            value={post.message} 
+            onChange={(e) => setPost({ ...post, message: e.target.value })} 
+          />
+        </div>
+        <div>
+          <label>Image URL</label>
+          <input 
+            type="text" 
+            value={post.selectedFile} 
+            onChange={(e) => setPost({ ...post, selectedFile: e.target.value })} 
+          />
+        </div>
+        <div>
+          <label>Likes</label>
+          <input 
+            type="number" 
+            value={post.likeCount} 
+            onChange={(e) => setPost({ ...post, likeCount: parseInt(e.target.value, 10) })} 
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 }
 
