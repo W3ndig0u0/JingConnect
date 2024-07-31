@@ -1,13 +1,17 @@
-import './App.css';
 
-function App() {
+import React from 'react';
+import Form from './components/Form/Form.js';
+import Posts from './components/Posts/Posts.js';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>BALLS</p>
-      </header>
+    <div>
+      <>
+      <Form/>
+      <Posts/>
+      </>
     </div>
-  );
+  )
 }
 
 export default App;
